@@ -45,20 +45,27 @@ module WorkCalendar
 			alldays = %i[sun mon tue wed thu fri sat]
 			loop do
 				n = n.send(operator, 1)
-				if active_days.include?alldays[n%7]
-					return count
-				end
+				break if active_days.include?alldays[n%7]
 				count += 1
 			end
+			count
 		end
 
-		# Given a list of w
+		# Checks if the array has at least one valid day
+		def self.valid_set?(days)
+			alldays = %i[sun mon tue wed thu fri sat]
+			alldays.each do |d|
+				# If atleast one day is in the set, the set is valid
+				return true if days.include?(d)
+			end
+			false
+		end
+
+		# Returns a hash for 7 days of the week with day index as key and day delta (next and prev) as value
 		# 
 		# +active_days+ - Array of weekdays e.g. [:mon, :tue, :wed, :thu. :fri, :sat]
 		# 
 		# ==== Examples
-		# 
-		# Illustrate the behaviour of the method using examples. Indent examples:
 		#
 		#    Configuration.get_weekday_delta(%i[mon tue wed thu fri])
 		# 	 => {0=>{:+=>1, :-=>2}, # Next active day (:+) after Sunday is Monday -> 1 day apart
@@ -69,11 +76,12 @@ module WorkCalendar
 		# 		 5=>{:+=>3, :-=>1},
 		# 		 6=>{:+=>2, :-=>1}}
 		def self.get_weekday_delta(active_days)
-			# We make sure that theres at least one active day in a week
-			raise "Weekdays array is empty" if active_days.empty?
 
 			# Convert the input to set for O(1) lookup
 			active_days = Set.new active_days
+
+			# We make sure that theres at least one active day in a week
+			raise "Weekdays array is invalid" if active_days.empty? || !valid_set?(active_days)
 
 			# Create hash for result set
 			delta = {}
