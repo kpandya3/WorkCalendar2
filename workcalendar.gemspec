@@ -7,6 +7,6 @@ Gem::Specification.new do |s|
   s.authors     = ["Kumar Pandya"]
   s.email       = 'kumar.pandya91@gmail.com'
   s.homepage    = 'https://github.com/kpandya91/WorkCalendar'
-  s.files       = ["lib/workcalendar.rb", "lib/workcalendar/configuration.rb"]
+  s.files       = ["lib/workcalendar.rb", "lib/workcalendar/configuration.rb", "lib/workcalendar/date.rb"]
   s.license       = 'MIT'
 end
