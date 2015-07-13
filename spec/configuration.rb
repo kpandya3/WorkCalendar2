@@ -7,10 +7,7 @@ describe WorkCalendar::Configuration do
 	let(:weekdays) { %i[fri tue wed mon] }
 
 	subject(:config) {
-		described_class.new do |c|
-			c.weekdays = weekdays
-			c.holidays = holidays
-		end
+		described_class.new
 	}
 
 	context 'when initialized without block' do
@@ -72,24 +69,41 @@ describe WorkCalendar::Configuration do
 	end
 
 	describe '#holidays' do
-		let(:holidays) { [Date.new(2015, 1, 1), Date.new(2015, 7, 3), Date.new(2015, 12, 25)] }
-
-		it 'returns set of holidays' do
-			expect(config.holidays).to eq Set.new(holidays)
+		it 'sets default to no holidays' do
+			expect(config.holidays).to eq Set.new
 		end
 
-		context 'when duplicate values provided' do
-			it 'does not raise' do
-				expect {  }
+		context 'when valid set of holidays given' do
+			before(:example) do
+				config.holidays = holidays
+			end
+			it 'sets the new value through setter' do
+				config.holidays = holidays
+			end
+			it 'returns set of holidays' do
+				expect(config.holidays).to eq Set.new(holidays)
 			end
 		end
+
 	end
 
-	# before(:each) do
-	# 	@config = WorkCalendar::Configuration.new
-	# end
+	describe '#weekdays' do
+		it 'sets mon to fri as default value' do
+			expect(config.weekdays).to eq WorkCalendar::Configuration.get_weekday_delta(%i[mon tue wed thu fri])
+		end
 
-	# it "" do
+		# already tested get_weekday_delta function for the rest of scenarios
+		context 'when valid input is given' do
+			let(:weekdays) { %i[mon tue] }
+			let(:res_set) { {0=>{:+=>1, :-=>5}, 1=>{:+=>1, :-=>6}, 2=>{:+=>6, :-=>1}, 3=>{:+=>5, :-=>1}, 4=>{:+=>4, :-=>2}, 5=>{:+=>3, :-=>3}, 6=>{:+=>2, :-=>4}} }
+			it 'sets the new value through setter' do
+				config.weekdays = weekdays
+			end
 
-	# end
+			it 'returns hash of weekdays with delta set' do
+				config.weekdays = weekdays
+				expect(config.weekdays).to eq res_set
+			end
+		end	
+	end
 end
