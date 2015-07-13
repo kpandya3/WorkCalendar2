@@ -9,19 +9,19 @@ describe Date do
 	context 'when WorkCalendar is not configured' do
 		describe '#is_holiday?' do
 			it 'should return nil' do
-				expect(Date.new(2015,5,6).is_holiday?).to eq nil
+				expect(Date.new(2015,5,6).is_holiday?).to be_nil
 			end
 		end
 
 		describe '#is_weekday?' do
 			it 'should return nil' do
-				expect(Date.new(2015,5,6).is_weekday?).to eq nil
+				expect(Date.new(2015,5,6).is_weekday?).to be_nil
 			end
 		end
 
 		describe '#get_active_date' do
 			it 'should return nil' do
-				expect(Date.new(2014,12,19).get_active_date).to eq nil
+				expect(Date.new(2014,12,19).get_active_date).to be_nil
 			end
 		end
 	end
@@ -37,15 +37,15 @@ describe Date do
 		describe '#is_holiday?' do
 
 			it 'should not return nil' do
-				expect(Date.new(2014,5,7).is_holiday?).not_to eq nil
+				expect(Date.new(2014,5,7).is_holiday?).not_to be_nil
 			end
 
 			it 'should return true if holiday' do
-				expect(Date.new(2015, 7, 3).is_holiday?).to eq true
+				expect(Date.new(2015, 7, 3).is_holiday?).to be true
 			end
 
 			it 'should return false if not holiday' do
-				expect(Date.new(2015, 10, 23).is_holiday?).to eq false
+				expect(Date.new(2015, 10, 23).is_holiday?).to be false
 			end
 		end
 
@@ -54,15 +54,15 @@ describe Date do
 			let(:not_weekday) { Date.new(2015, 10, 18) }
 
 			it 'should not return nil' do
-				expect(Date.new(2014,5,7).is_weekday?).not_to eq nil
+				expect(Date.new(2014,5,7).is_weekday?).not_to be_nil
 			end
 
 			it 'should return true if weekday' do
-				expect(weekday.is_weekday?).to eq true
+				expect(weekday.is_weekday?).to be true
 			end
 
 			it 'should return false if not weekday' do
-				expect(not_weekday.is_weekday?).to eq false
+				expect(not_weekday.is_weekday?).to be false
 			end
 		end
 
