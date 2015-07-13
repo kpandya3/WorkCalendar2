@@ -52,6 +52,9 @@ module WorkCalendar
 		end
 
 		# Checks if the array has at least one valid day
+		# 
+		# +days+ - Set of weekdays
+		# 
 		def self.valid_set?(days)
 			alldays = %i[sun mon tue wed thu fri sat]
 			alldays.each do |d|
@@ -81,7 +84,7 @@ module WorkCalendar
 			active_days = Set.new active_days
 
 			# We make sure that theres at least one active day in a week
-			raise "Weekdays array is invalid" if active_days.empty? || !valid_set?(active_days)
+			raise ArgumentError, "Weekdays array does not have at least one valid day" if active_days.empty? || !valid_set?(active_days)
 
 			# Create hash for result set
 			delta = {}
