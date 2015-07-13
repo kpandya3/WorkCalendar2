@@ -1,5 +1,4 @@
-require "date"
-require "../lib/workcalendar/configuration.rb"
+require_relative './spec_helper'
 
 describe WorkCalendar::Configuration do
 
@@ -84,7 +83,6 @@ describe WorkCalendar::Configuration do
 				expect(config.holidays).to eq Set.new(holidays)
 			end
 		end
-
 	end
 
 	describe '#weekdays' do
@@ -93,7 +91,8 @@ describe WorkCalendar::Configuration do
 		end
 
 		# already tested get_weekday_delta function for the rest of scenarios
-		context 'when valid input is given' do
+
+		context 'when valid array of weekdays given' do
 			let(:weekdays) { %i[mon tue] }
 			let(:res_set) { {0=>{:+=>1, :-=>5}, 1=>{:+=>1, :-=>6}, 2=>{:+=>6, :-=>1}, 3=>{:+=>5, :-=>1}, 4=>{:+=>4, :-=>2}, 5=>{:+=>3, :-=>3}, 6=>{:+=>2, :-=>4}} }
 			it 'sets the new value through setter' do

@@ -1,5 +1,5 @@
-require "workcalendar/date"
-require "workcalendar/configuration"
+require_relative "workcalendar/date"
+require_relative "workcalendar/configuration"
 
 # Main module for workcalendar gem
 module WorkCalendar
@@ -23,20 +23,19 @@ module WorkCalendar
 		# +date+ - Date to go back on
 		# 
 		def days_before(n, date)
-			n.times do ||
-				date = date.get_active_date(:-)
-			end
-			date
+			days_after(n, date, :-)
 		end
 
 		# Returns nth active date after the current date
 		# 
 		# +n+ - Number of dates to go forward till
 		# +date+ - Date to go forward on
+		# +operator+ - Operator to get date after given date or date before given date
 		# 
-		def days_after(n, date)
+		def days_after(n, date, operator=:+)
+			return nil if !configuration
 			n.times do ||
-				date = date.get_active_date
+				date = date.get_active_date(operator)
 			end
 			date
 		end
@@ -48,7 +47,7 @@ module WorkCalendar
 		# 
 		def between(date1, date2)
 			# If date1 isn't smaller than date2, we throw error
-			raise "Ending date is not greater than starting date" if date1 >= date2
+			raise "Ending date is not bigger than starting date" if date1 >= date2
 
 			# Create result set and add date1 if its not holiday
 			res = Array.new
@@ -71,6 +70,5 @@ module WorkCalendar
 			# Yield for block
 			yield(configuration)
 		end
-
 	end
 end # WorkCalendar
