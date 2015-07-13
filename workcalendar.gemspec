@@ -8,5 +8,7 @@ Gem::Specification.new do |s|
   s.email       = 'kumar.pandya91@gmail.com'
   s.homepage    = 'https://github.com/kpandya91/WorkCalendar'
   s.files       = ["lib/workcalendar.rb", "lib/workcalendar/configuration.rb", "lib/workcalendar/date.rb"]
-  s.license       = 'MIT'
+  s.license     = 'MIT'
+
+  s.add_development_dependency 'rspec'
 end
