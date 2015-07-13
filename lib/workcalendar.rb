@@ -46,6 +46,8 @@ module WorkCalendar
 		# +date2+ - Ending date range
 		# 
 		def between(date1, date2)
+			return nil if !configuration
+
 			# If date1 isn't smaller than date2, we throw error
 			raise "Ending date is not bigger than starting date" if date1 >= date2
 
@@ -64,11 +66,12 @@ module WorkCalendar
 		end
 
 		# Yields WorkCalendar configuration
-		def configure
+		def configure(&block)
 			# Create new configuration if it doesn't already exists
 			self.configuration ||= Configuration.new
-			# Yield for block
-			yield(configuration)
+
+			# Yield for block if block given
+			yield(configuration) if block
 		end
 	end
 end # WorkCalendar
