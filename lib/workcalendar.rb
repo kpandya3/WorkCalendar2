@@ -4,7 +4,7 @@ require_relative "workcalendar/configuration"
 # Main module for workcalendar gem
 module WorkCalendar
 
-	class << self
+	module ClassMethods
 		# Gets and sets the configuration for WorkCalendar module
 		attr_accessor :configuration
 
@@ -78,4 +78,7 @@ module WorkCalendar
 			yield(configuration) if block
 		end
 	end
+
+	extend ClassMethods
+
 end # WorkCalendar
