@@ -17,6 +17,18 @@ class Date
 		WorkCalendar.configuration ? WorkCalendar.configuration.weekdays[(self.wday - 1)%7][:+] == 1 : nil
 	end
 
+	# Returns next active date
+	def next_active_date
+		get_active_date
+	end
+
+	# Returns previous active date
+	def prev_active_date
+		get_active_date(:-)
+	end
+
+private
+
 	# Returns next active date (next date that is a weekday and not a holiday)
 	def get_active_date(operator=:+)
 		return nil if !WorkCalendar.configuration

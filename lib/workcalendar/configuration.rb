@@ -28,6 +28,17 @@ module WorkCalendar
 		# 
 		# +active_days+ - Array of weekdays
 		# 
+		# ==== Example
+		#
+		#    c.weekdays = %i[mon tue wed thu fri]
+		# 	 => {0=>{:+=>1, :-=>2}, # Next active day (:+) after Sunday is Monday -> 1 day apart
+		# 		 1=>{:+=>1, :-=>3},	# Previous active day (:-) before Monday is Friday -> 3 days apart
+		# 		 2=>{:+=>1, :-=>1},
+		# 		 3=>{:+=>1, :-=>1},
+		# 		 4=>{:+=>1, :-=>1},
+		# 		 5=>{:+=>3, :-=>1},
+		# 		 6=>{:+=>2, :-=>1}}
+		# 
 		def weekdays=(active_days)
 			@weekdays = self.class.get_weekday_delta(active_days)
 		end
@@ -68,16 +79,6 @@ module WorkCalendar
 		# 
 		# +active_days+ - Array of weekdays e.g. [:mon, :tue, :wed, :thu. :fri, :sat]
 		# 
-		# ==== Examples
-		#
-		#    Configuration.get_weekday_delta(%i[mon tue wed thu fri])
-		# 	 => {0=>{:+=>1, :-=>2}, # Next active day (:+) after Sunday is Monday -> 1 day apart
-		# 		 1=>{:+=>1, :-=>3},	# Previous active day (:-) before Monday is Friday -> 3 days apart
-		# 		 2=>{:+=>1, :-=>1},
-		# 		 3=>{:+=>1, :-=>1},
-		# 		 4=>{:+=>1, :-=>1},
-		# 		 5=>{:+=>3, :-=>1},
-		# 		 6=>{:+=>2, :-=>1}}
 		def self.get_weekday_delta(active_days)
 
 			# Convert the input to set for O(1) lookup
