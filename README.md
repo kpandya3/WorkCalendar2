@@ -3,10 +3,10 @@ A gem to do simple date calculations
 
 ## Installation
 ```console
-git clone https://github.com/kpandya91/WorkCalendar.git 
-cd WorkCalendar
-gem build workcalendar.gemspec 
-gem install workcalendar-0.1.0.gem 
+git clone https://github.com/kpandya91/WorkCalendar2.git 
+cd WorkCalendar2
+gem build workcalendar2.gemspec 
+gem install workcalendar2-0.1.0.gem 
 ```
 
 ## Configuration
