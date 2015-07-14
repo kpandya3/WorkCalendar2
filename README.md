@@ -58,8 +58,10 @@ WorkCalendar.between(Date.new(2014, 12, 26), Date.new(2015, 1, 7))
 Find rdoc generated documentation [here!](http://kumarpandya.com/workcalendar)
 
 ## Implementation
+
 #### Configuration.rb
 The class to save configuration for WorkCalendar module
+
 ###### #holidays
 + We save holidays as **Set** to have O(1) lookup when checking if a date is holiday (since we don't care if we lose duplicates and set in ruby are hashed)
 + One alternative would've been to use **Array** with O(n) lookup. This could get really expensive for **days_before**, **days_after** and **between** methods if the array isn't sorted.
@@ -68,3 +70,34 @@ The class to save configuration for WorkCalendar module
 ###### #weekdays
 + We create hash to save weekdays with index of the weekday as key (i.e. 0-6 representing sun-sat)
 + In order for date to be able to skip over non-active days without any cost, we set each value to be Hash with prev (:-) and next (:+) keys and cost of moving from the given day as value
+
+  e.g.
+  ```ruby
+  c.weekdays = %i[mon tue wed thu fri]
+  # 	 => {   0=>{:+=>1, :-=>2},  # Next active day (:+) after Sunday is Monday -> 1 day apart
+  # 		    1=>{:+=>1, :-=>3},	# Previous active day (:-) before Monday is Friday -> 3 days apart
+  # 		    2=>{:+=>1, :-=>1},
+  # 		    3=>{:+=>1, :-=>1},
+  # 		    4=>{:+=>1, :-=>1},
+  # 		    5=>{:+=>3, :-=>1},
+  # 		    6=>{:+=>2, :-=>1} }
+  ```
+
+#### Date.rb
+This file extends the functionalities of default ruby date library.
+
+* If I am a Date, I can:
+  1. Know if I am a weekday
+  2. Know if I am a holiday
+  3. Give the next active date
+  4. Give the previous active date
+
+* The reason behind implementing it this way is that the functonalities being added to Date are lightweight and we are not overriding or reimplementing existing methods.
+
+* The alternative would've been to not take Object oriented approach and have WorkCalendar module work solely with Configuration class to do date calculations.
+
+* Date also reads its settings for weekdays and holidays from WorkCalendar module for the sake of not having duplicate data. The alternative for that would be to set weekdays and holidays as class variables for Date class.
+
+#### WorkCalendar.rb
+This file contains the main methods for our library
+Module documentation can be found [here](http://kumarpandya.com/workcalendar/WorkCalendar.html).
