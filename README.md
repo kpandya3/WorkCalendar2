@@ -60,6 +60,8 @@ Find rdoc generated documentation [here!](http://kumarpandya.com/workcalendar)
 ## Implementation
 
 #### Configuration.rb
+[Documentation](http://kumarpandya.com/workcalendar/WorkCalendar/Configuration.html)
+
 The class to save configuration for WorkCalendar module
 
 ###### #holidays
@@ -84,6 +86,8 @@ The class to save configuration for WorkCalendar module
   ```
 
 #### Date.rb
+[Documentation](http://kumarpandya.com/workcalendar/Date.html)
+
 This file extends the functionalities of default ruby date library.
 
 * If I am a Date, I can:
@@ -99,5 +103,6 @@ This file extends the functionalities of default ruby date library.
 * Date also reads its settings for weekdays and holidays from WorkCalendar module for the sake of not having duplicate data. The alternative for that would be to set weekdays and holidays as class variables for Date class.
 
 #### WorkCalendar.rb
-This file contains the main methods for our library
-Module documentation can be found [here](http://kumarpandya.com/workcalendar/WorkCalendar.html).
+[Documentation](http://kumarpandya.com/workcalendar/WorkCalendar.html)
+
+This file contains the main methods for our library.
