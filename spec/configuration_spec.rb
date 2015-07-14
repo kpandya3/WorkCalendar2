@@ -41,7 +41,7 @@ describe WorkCalendar::Configuration do
 			let(:weekdays) { %i[] }
 
 			it 'should raise' do
-				expect { WorkCalendar::Configuration.get_weekday_delta(weekdays) }.to raise_error(RuntimeError)
+				expect { WorkCalendar::Configuration.get_weekday_delta(weekdays) }.to raise_error(ArgumentError, "Weekdays array does not have at least one valid day")
 			end
 		end
 
@@ -49,7 +49,7 @@ describe WorkCalendar::Configuration do
 			let(:weekdays) { %i[Friday Tue wednesday MON] }
 
 			it 'should raise' do
-				expect { WorkCalendar::Configuration.get_weekday_delta(weekdays) }.to raise_error(RuntimeError)
+				expect { WorkCalendar::Configuration.get_weekday_delta(weekdays) }.to raise_error(ArgumentError, "Weekdays array does not have at least one valid day")
 			end
 		end
 
