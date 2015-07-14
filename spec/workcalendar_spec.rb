@@ -2,38 +2,6 @@ require_relative "./spec_helper"
 
 describe WorkCalendar do
 
-	describe '.configure' do
-		let(:holidays) { [Date.new(2014, 12, 31), Date.new(2015, 1, 1), Date.new(2015, 7, 3), Date.new(2015, 12, 25), Date.new(2015, 4, 15), Date.new(2015, 9, 15)] }
-		let(:weekdays_hash) { {0=>{:+=>2, :-=>2}, 1=>{:+=>1, :-=>3}, 2=>{:+=>1, :-=>4}, 3=>{:+=>1, :-=>1}, 4=>{:+=>1, :-=>1}, 5=>{:+=>4, :-=>1}, 6=>{:+=>3, :-=>1}} }
-
-		before(:context) do
-			WorkCalendar.configure do |c|
-				c.holidays = [Date.new(2014, 12, 31), Date.new(2015, 1, 1), Date.new(2015, 7, 3), Date.new(2015, 12, 25), Date.new(2015, 4, 15), Date.new(2015, 9, 15)]
-				c.weekdays = %i[tue wed thu fri]
-			end
-		end
-
-		after(:context) do
-			WorkCalendar.configuration = nil
-		end
-
-		it 'configures if no block given' do
-			expect { WorkCalendar.configure }.not_to raise_error
-		end
-
-		it 'sets WorkCalendar.configuration with given block' do
-			expect(WorkCalendar.configuration).not_to be_nil
-		end
-
-		it 'sets the holidays to Set of given days' do
-			expect(WorkCalendar.configuration.holidays).to eq Set.new holidays
-		end
-
-		it 'sets weekdays to Hash of days-delta pair' do
-			expect(WorkCalendar.configuration.weekdays).to eq weekdays_hash
-		end
-	end
-
 	context 'when WorkCalendar is not configured' do
 		describe '.configuration' do
 			it 'should be nil' do
@@ -63,6 +31,34 @@ describe WorkCalendar do
 			it 'should return nil' do
 				expect(WorkCalendar.between(Date.new(2015,4,20), Date.new(2015,4,25))).to be_nil
 			end
+		end
+	end
+
+	describe '.configure' do
+		let(:holidays) { [Date.new(2014, 12, 31), Date.new(2015, 1, 1), Date.new(2015, 7, 3), Date.new(2015, 12, 25), Date.new(2015, 4, 15), Date.new(2015, 9, 15)] }
+		let(:weekdays_hash) { {0=>{:+=>2, :-=>2}, 1=>{:+=>1, :-=>3}, 2=>{:+=>1, :-=>4}, 3=>{:+=>1, :-=>1}, 4=>{:+=>1, :-=>1}, 5=>{:+=>4, :-=>1}, 6=>{:+=>3, :-=>1}} }
+
+		before(:context) do
+			WorkCalendar.configure do |c|
+				c.holidays = [Date.new(2014, 12, 31), Date.new(2015, 1, 1), Date.new(2015, 7, 3), Date.new(2015, 12, 25), Date.new(2015, 4, 15), Date.new(2015, 9, 15)]
+				c.weekdays = %i[tue wed thu fri]
+			end
+		end
+
+		it 'configures if no block given' do
+			expect { WorkCalendar.configure }.not_to raise_error
+		end
+
+		it 'sets WorkCalendar.configuration with given block' do
+			expect(WorkCalendar.configuration).not_to be_nil
+		end
+
+		it 'sets the holidays to Set of given days' do
+			expect(WorkCalendar.configuration.holidays).to eq Set.new holidays
+		end
+
+		it 'sets weekdays to Hash of days-delta pair' do
+			expect(WorkCalendar.configuration.weekdays).to eq weekdays_hash
 		end
 	end
 
